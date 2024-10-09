@@ -4,9 +4,10 @@
       <v-col cols="12" class="d-flex align-center justify-space-between pb-0 pt-4">
         <h1>Mes Procédures</h1>
         <div>
-          <v-btn :loading="loadingDownload" outlined color="primary" class="mr-2" @click="download">
+          <DashboardExportCsvDialog />
+          <!-- <v-btn :loading="loadingDownload" outlined color="primary" class="mr-2" @click="download">
             Exporter les procédures
-          </v-btn>
+          </v-btn> -->
           <v-btn depressed color="primary" :to="`/ddt/${$route.params.departement}/procedures/add-choose-collectivite`">
             Nouvelle procédure
           </v-btn>
