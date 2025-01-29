@@ -1,7 +1,7 @@
 ---
 apiPath: "/api/urba/exports/scots"
 files: []
-order: 10
+order: 1
 visible: true
 ---
 https://nuxt3.docurba.incubateur.net/api/urba/exports/scots
@@ -12,7 +12,7 @@ Cet endpoint retourne les données des procédures SCOTS par combinaison SCOT en
 ⚠️ **Note importante :**  
 Une collectivité porteuse peut avoir plusieurs procédures opposables, et donc la même procédure en cours peut apparaître plusieurs fois.
 
-Ici la préposition `scot_` fait en faire référence à la collectivité porteuse des procédures de type SCOT de l'export.
+Ici la préposition `scot_` fait référence à la collectivité porteuse des procédures de type SCOT de l'export.
 
 ---
 
@@ -28,7 +28,7 @@ Aucun paramètre de requête disponible, car les fichiers générés sont plus p
 
 ### Format de la réponse
 
-La réponse est un objet JSON contenant les informations suivantes :
+La réponse est un CSV contenant les informations suivantes :
 
 ```json
 {
