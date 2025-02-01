@@ -1,0 +1,17 @@
+[project]
+name = "docurba"
+version = "1"
+requires-python = ">=3.13"
+dependencies = [
+    "django",
+ "django-environ",
+ "django-revproxy>=0.13.0",
+ "gunicorn",
+]
+
+[dependency-groups]
+dev = [
+    "honcho",
+    "ptpython",
+    "ruff",
+]
