@@ -1,0 +1,1 @@
+web: gunicorn --reload core.wsgi --log-file=-
