@@ -1,12 +1,27 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createBrowserClient, createServerClient, parseCookieHeader, serializeCookieHeader } from '@supabase/ssr'
 // import { PG_DEV_CONFIG, PG_PROD_CONFIG } from '@/database/pg_secret_config.json'
 
-export default (_, inject) => {
+export default ({ req, res }, inject) => {
   // const supabaseUrl = 'https://ixxbyuandbmplfnqtxyw.supabase.co'
   const supabaseUrl = 'https://supabase.docurba.beta.gouv.fr'
   const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNDk3NTU3NiwiZXhwIjoxOTUwNTUxNTc2fQ.zvgWeMG3sKSwBKv8uGm5uy82cEyMyEMivQvNIDFhBkA'
 
-  inject('supabase', createBrowserClient(supabaseUrl, supabaseAnonKey))
+  if (process.client) {
+    inject('supabase', createBrowserClient(supabaseUrl, supabaseAnonKey))
+  } else {
+    inject('supabase', createServerClient(supabaseUrl, supabaseAnonKey, {
+      cookies: {
+        getAll () {
+          return parseCookieHeader(req.headers.cookie ?? '')
+        },
+        setAll (cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            res.appendHeader('Set-Cookie', serializeCookieHeader(name, value, options))
+          )
+        }
+      }
+    }))
+  }
   // const DB_CONFIG = PG_DEV_CONFIG
   // console.log(`Running on ${DB_CONFIG.env === 'dev' ? 'Dev' : 'Prod'} database instance.`)
   // console.log('Need run with PG_PROD_CONFIG for deploy: ', PG_PROD_CONFIG)
