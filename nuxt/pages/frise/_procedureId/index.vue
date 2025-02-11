@@ -481,8 +481,12 @@ export default
     },
     async archiveProcedure (idProcedure) {
       try {
-        const { error } = await this.$supabase.from('procedures').delete().eq('id', idProcedure)
+        const { error } = await this.$supabase.rpc('soft_delete_procedure', {
+          deleted_procedure_id: idProcedure
+        })
+
         if (error) { throw error }
+
         this.$emit('delete', idProcedure)
         this.dialog = false
         this.$router.push(-1)
